@@ -17,10 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.schemas import get_schema_view
 
-schema_view = get_schema_view(title='MoD-i API', description='dalenge abhi')
+schema_view = get_schema_view(title='MoD-i API', description='dalenge abhi', url='http://ec2-13-232-100-99.ap-south-1.compute.amazonaws.com:8000/')
 
 urlpatterns = [
-
+    path('', 
+        include_docs_urls(title='MoD-i API', 
+        description='', 
+        schema_url='http://ec2-13-232-100-99.ap-south-1.compute.amazonaws.com:8000/')),
     path('schema/', schema_view),
     path('admin/', admin.site.urls),
     path('dep1/', include('dep1.urls', namespace='dep1')),
