@@ -12,6 +12,9 @@ __init__.py
 
 import binascii
 import json
+from django.db import connection
+from django.conf import settings
+
 
 def file_to_hex(filename):
     with open(filename, 'rb') as f:
@@ -63,3 +66,51 @@ def dict_to_hex(data):
 
 def hex_to_dict(hexa):
     return json.loads( hex_to_char(hexa))
+
+
+def fetch_next_id(table_name):
+    db_engine = connection.settings_dict['ENGINE']
+
+    if db_engine == 'django.db.backends.sqlite3':
+        cursor = connection.cursor()
+        cursor.execute(f"select seq from sqlite_sequence where name='{table_name}'")
+        row = cursor.fetchone()
+        cursor.close()
+        # if sqlite_sequence table has record for the table_name
+        if row is not None:
+            seq_id = int(row[0])
+        # else if its first record insertion in the table_name
+        else:
+            seq_id = 0
+        return seq_id + 1
+    elif db_engine == 'django.db.backends.mysql':
+        cursor = connection.cursor()
+        # database_name = 'ethereal_machines'
+        database_name = settings.DATABASES['default']['NAME']
+        cursor.execute(
+            f"select auto_increment from information_schema.tables where auto_increment is not null and table_schema = '{database_name}' and table_name = '{table_name}'")
+        row = cursor.fetchone()
+        cursor.close()
+        seq_id = int(row[0])
+        return seq_id
+    elif db_engine == 'django.db.backends.postgresql_psycopg2':
+        cursor = connection.cursor()
+        cursor.execute(
+            "SELECT nextval('{0}_{1}_id_seq'::regclass)".format(
+                instance._meta.app_label.lower(),
+                instance._meta.object_name.lower(),
+            )
+        )
+        row = cursor.fetchone()
+        cursor.close()
+        return int(row[0])
+    elif db_engine == 'django.db.backends.oracle':
+        pass
+    else:
+        raise
+
+
+def notify(model, frm, to, ticket_no, txid, stream, key):
+    model(frm, to, ticket_no, txid, stream, key)
+
+
