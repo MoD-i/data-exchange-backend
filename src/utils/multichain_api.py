@@ -36,10 +36,6 @@ rpcport = '6820'
 chainname = 'mychain'
 
 
-def jsonify(data):
-    return json.dumps(data, indent=4)
-
-
 api = Savoir(rpcuser, rpcpasswd, rpchost, rpcport, chainname)
 
 def publish_stream(stream, key, data, data_format='char'):
