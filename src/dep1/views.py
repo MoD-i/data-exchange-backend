@@ -38,4 +38,31 @@ def load_data(request):
     txid = ''  # TODO: get it from notification/table 
     tx_data = get_tx_data(txid)
     json_data = hex_to_json(tx_data)
-    # for data in json_data:
+    d = json.loads(str(json_data))
+    if isinstance(d, list):
+        for data in d:
+            aadhar = d["aadhar_number"]
+            count = Scheme.objects.filter(aadhar_number=aadhar).count()
+            if count > 0:
+                obj = Scheme.objects.get(aadhar)
+                obj.beneficiary_name = d["beneficiary_name"]
+                obj.address = d["address"]
+                obj.gender = d["gender"]
+                obj.member_age = d["member_age"]
+                obj.dist_name = d["dist_name"]
+                obj.scheme_name = d["scheme_name"]
+                obj.save()
+    else:
+        aadhar = d["aadhar_number"]
+        count = Scheme.objects.filter(aadhar_number=aadhar).count()
+        if count > 0:
+            obj = Scheme.objects.get(aadhar)
+            obj.beneficiary_name = d["beneficiary_name"]
+            obj.address = d["address"]
+            obj.gender = d["gender"]
+            obj.member_age = d["member_age"]
+            obj.dist_name = d["dist_name"]
+            obj.scheme_name = d["scheme_name"]
+            obj.save()
+
+
