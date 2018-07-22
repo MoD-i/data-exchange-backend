@@ -37,14 +37,14 @@ def hex_to_char(hexa):
 
 
 def char_to_hex(s):
-    # return (s.encode('utf-8')).hex()
-    lst = []
-    for ch in s:
-        hv = hex(ord(ch)).replace('0x', '')
-        if len(hv) == 1:
-            hv = '0'+hv
-        lst.append(hv)
-    return reduce(lambda x,y:x+y, lst)
+    # lst = []
+    # for ch in s:
+    #     hv = hex(ord(ch)).replace('0x', '')
+    #     if len(hv) == 1:
+    #         hv = '0'+hv
+    #     lst.append(hv)
+    # return reduce(lambda x,y:x+y, lst)
+    return (s.encode('utf-8')).hex()
 
 
 def json_to_hex(data):
@@ -57,7 +57,8 @@ def hex_to_json(hexa):
 
 
 def dict_to_hex(data):
-    return char_to_hex(str(data))
+    json_from_dict = json.dumps(data, indent=4)
+    return char_to_hex(str(json_from_dict))
 
 
 def hex_to_dict(hexa):
