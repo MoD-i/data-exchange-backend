@@ -10,7 +10,7 @@ class Scheme(models.Model):
     TRANS = 'T'
     GENDER_CHOICES = ((FEMALE, 'Female'), (MALE, 'Male'), (TRANS, 'Transgender'))
 
-    aadhaar_number = models.CharField(max_length=15, unique=True, primary_key=True)
+    aadhar_number = models.CharField(max_length=15, unique=True, primary_key=True)
     beneficiary_name = models.CharField(max_length = 50, null=True, blank=True)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=1, null=True, blank=True)
     member_age =  models.IntegerField(null=True, blank=True)
