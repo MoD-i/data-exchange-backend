@@ -16,13 +16,18 @@ class SchemeViewSet(viewsets.ModelViewSet):
 
 @api_view(['POST'])
 def make_request(request):
+    """
+    JSON needed with:
+        1. department
+        2. aadhar
+    """
     data = request.data
     stream = 'scheme'
     ticket_no = fetch_next_id('dep1_ticket')
     frm = 'dep1'
-    to = 'dep2'  # get it from request.data, as of now hardcoded #TODO
+    to = 'dep2'  # request.data['department']
     key = f'{frm}-{to}-{ticket_no}'
-    data_to_publish = data  #TODO: get it from request.data
+    data_to_publish = request.data['aadhar']  #TODO: get it from request.data
     txid = publish_stream(stream, key, data_to_publish, data_format='json')
     
     if txid:
@@ -33,13 +38,16 @@ def make_request(request):
 
 @api_view(['POST'])
 def load_data(request):
-    data = request.data
-    txid = ''  # TODO: get it from notification/table 
+    """
+    JSON needed with:
+        1. txid
+    """
+    txid = request.data[txid]
     tx_data = get_tx_data(txid)
     json_data = hex_to_json(tx_data)
-    d = json.loads(str(json_data))
-    if isinstance(d, list):
-        for data in d:
+    datum = json.loads(str(json_data))
+    if isinstance(datum, list):
+        for d in datum:
             aadhar = d["aadhar_number"]
             count = Scheme.objects.filter(aadhar_number=aadhar).count()
             if count > 0:
@@ -52,7 +60,7 @@ def load_data(request):
                 obj.scheme_name = d["scheme_name"]
                 obj.save()
     else:
-        aadhar = d["aadhar_number"]
+        aadhar = datum["aadhar_number"]
         count = Scheme.objects.filter(aadhar_number=aadhar).count()
         if count > 0:
             obj = Scheme.objects.get(aadhar)
