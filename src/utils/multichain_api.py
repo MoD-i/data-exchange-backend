@@ -18,9 +18,11 @@ myPath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, myPath + '/../')
 
 try:
-    from utils import hex_to_file, file_to_hex, char_to_hex, hex_to_char
+    from utils import hex_to_file, file_to_hex, char_to_hex, hex_to_char, dict_to_hex, json_to_hex, hex_to_dict, hex_to_json
+
 except:
-    from src.utils import hex_to_file, file_to_hex, char_to_hex, hex_to_char
+    from src.utils import hex_to_file, file_to_hex, char_to_hex, hex_to_char, dict_to_hex, json_to_hex, hex_to_dict, hex_to_json
+
 
 __version__ = '1.0.0'
 __author__ = 'Toran Sahu  <toran.sahu@yahoo.com>'
@@ -40,9 +42,15 @@ def jsonify(data):
 
 api = Savoir(rpcuser, rpcpasswd, rpchost, rpcport, chainname)
 
-def publish_stream(stream, key, data, isfile=False):
-    if isfile:
+def publish_stream(stream, key, data, data_format='char'):
+    if data_format == 'file':
         hex_data = file_to_hex(data) 
+        txid = api.publish(stream, key, hex_data)
+    elif data_format == 'json':
+        hex_data = json_to_hex(data)
+        txid = api.publish(stream, key, hex_data)
+    elif data_format == 'dict':
+        hex_data = dict_to_hex(data)
         txid = api.publish(stream, key, hex_data)
     else:
         hex_data = char_to_hex(data)
