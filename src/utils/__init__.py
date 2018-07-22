@@ -11,6 +11,7 @@ __init__.py
 """
 
 import binascii
+import json
 
 def file_to_hex(filename):
     with open(filename, 'rb') as f:
@@ -25,21 +26,39 @@ def hex_to_file(hexa, filename):
         data = binascii.unhexlify(hexa)
         f.write(data)
 
+
 def hex_to_char(hexa):
+    # return s and chr(atoi(s[:2], base=16)) + toStr(s[2:]) or ''
     n = 2
     line  = hexa
     hex_pair = [line[i:i+n] for i in range(0, len(line), n)]
     ascii_pair = list(map(lambda x: int(x, 16), hex_pair))
     return ''.join(list(map(chr,ascii_pair)))
 
-def char_to_hex(char):
-    # TODO
-    pass
 
-def json_to_hex(char):
-    # TODO
-    pass
+def char_to_hex(s):
+    # return (s.encode('utf-8')).hex()
+    lst = []
+    for ch in s:
+        hv = hex(ord(ch)).replace('0x', '')
+        if len(hv) == 1:
+            hv = '0'+hv
+        lst.append(hv)
+    return reduce(lambda x,y:x+y, lst)
 
-def hex_to_json(char):
-    # TODO
-    pass
+
+def json_to_hex(data):
+    return char_to_hex(str(data))
+
+
+def hex_to_json(hexa):
+    dict_from_str = json.loads( hex_to_char(hexa))
+    return json.dumps(dict_from_str, indent=4)
+
+
+def dict_to_hex(data):
+    return char_to_hex(str(data))
+
+
+def hex_to_dict(hexa):
+    return json.loads( hex_to_char(hexa))
