@@ -4,9 +4,9 @@ from .serializers import SchemeSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from utils.multichain_api import api, publish_stream, get_tx_data
-from utils import hex_to_json
+from utils import hex_to_json, fetch_next_id, notify
 from uuid import uuid4
-
+from common.models import Notification
 # Create your views here.
 
 class SchemeViewSet(viewsets.ModelViewSet):
@@ -18,16 +18,15 @@ class SchemeViewSet(viewsets.ModelViewSet):
 def make_request(request):
     data = request.data
     stream = 'scheme'
-    _ticket_no = 1  #TODO: get it from Ticket Model using prefetch_id() 
-    _from = 'dep1'
-    _to = 'dep2'  #TODO: get it from request.data
-    key = f'{_from}-{_to}-{_ticket_no}'
-    data_to_publish = ''  #TODO: get it from request.data
+    ticket_no = fetch_next_id('dep1_ticket')
+    frm = 'dep1'
+    to = 'dep2'  # get it from request.data, as of now hardcoded #TODO
+    key = f'{frm}-{to}-{ticket_no}'
+    data_to_publish = data  #TODO: get it from request.data
     txid = publish_stream(stream, key, data_to_publish, data_format='json')
     
     if txid:
-        # TODO: define notify()
-        notify(_from, _to, _ticket_no, txid, stream, key)
+        notify(Notification, frm, to, ticket_no, txid, stream, key)
     else:
         pass  # inform user about failure
 
