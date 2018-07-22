@@ -16,19 +16,38 @@ myPath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, myPath + '/../')
 
 try:
-    from utils import hex_to_file, file_to_hex, hex_to_char
+    from utils import hex_to_file, file_to_hex, char_to_hex, hex_to_char, dict_to_hex, json_to_hex, hex_to_dict, hex_to_json
 except:
-    from src.utils import hex_to_file, file_to_hex, hex_to_char
+    from src.utils import hex_to_file, file_to_hex, char_to_hex, hex_to_char, dict_to_hex, json_to_hex, hex_to_dict, hex_to_json
 
-def hex_to_char(hexa):
-    n = 2
-    line  = hexa
-    hex_pair = [line[i:i+n] for i in range(0, len(line), n)]
-    ascii_pair = list(map(lambda x: int(x, 16), hex_pair))
-    return ''.join(list(map(chr,ascii_pair)))
+##
+# dict
+##
+d = {"key": "value", "a": 123}
+h = dict_to_hex(d)
+if d == hex_to_dict(h):
+    print("dict passed")
+else:
+    print("dict failed")
+
+##
+# string
+##
+
+h = '7a61626364'
+c = hex_to_char(h)
+if char_to_hex(c) == h:
+    print("char passed")
+else:
+    print("char failed")
 
 
-hexa = '5b7ba202020226b6579223a202276616c7565222ca202020226b657932223a202276616c75653222a7d5d'
-
-res = hex_to_char(hexa)
-print(json.dumps(res, indent=4))
+##
+# json
+##
+j = json.dumps(d, indent=4)
+h = json_to_hex(j)
+if j == hex_to_json(h):
+    print("json passed")
+else:
+    print("json passed")
