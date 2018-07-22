@@ -17,3 +17,7 @@ class Scheme(models.Model):
     address = models.CharField(max_length=100, null=True, blank=True)
     dist_name = models.CharField(max_length=50, null=True, blank=True)
     scheme_name = models.CharField(max_length=100, null=True, blank=True)
+
+
+class Ticket(models.Model):
+    ticket_id = models.IntegerField(primary_key=True, unique=True)
