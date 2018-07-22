@@ -1,7 +1,7 @@
 from rest_framework import viewsets, mixins
 from .models import Scheme
 from .serializers import SchemeSerializer
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from utils.multichain_api import api, publish_stream, get_tx_data
 from utils import hex_to_json, fetch_next_id, notify
@@ -12,6 +12,30 @@ from common.models import Notification
 class SchemeViewSet(viewsets.ModelViewSet):
     queryset = Scheme.objects.all()
     serializer_class = SchemeSerializer
+    
+    # @action(methods=['POST'], detail=False, url_path='^request/', url_name='submit-request')
+    # def make_request(self, request):
+    #     """
+    #     Requests other department to fetch data.
+
+    #     JSON needed with:
+    #         1. department
+    #         2. aadhar
+    #     """
+    #     data = request.data
+    #     stream = 'scheme'
+    #     ticket_no = fetch_next_id('dep1_ticket')
+    #     frm = 'dep1'
+    #     to = 'dep2'  # request.data['department']
+    #     key = f'{frm}-{to}-{ticket_no}'
+    #     data_to_publish = request.data['aadhar']  #TODO: get it from request.data
+    #     txid = publish_stream(stream, key, data_to_publish, data_format='json')
+    #     
+    #     if txid:
+    #         notify(Notification, frm, to, ticket_no, txid, stream, key)
+    #     else:
+    #         pass  # inform user about failure
+
 
 
 @api_view(['POST'])

@@ -10,8 +10,9 @@
 
 """
 
-from .views import SchemeViewSet
+from .views import SchemeViewSet, make_request, load_data
 from rest_framework.routers import DefaultRouter
+from django.urls import path, include
 
 
 app_name = 'dep1'
@@ -20,3 +21,6 @@ router = DefaultRouter()
 router.register('schemes', SchemeViewSet, base_name='schemes')
 
 urlpatterns = router.urls
+
+urlpatterns += [path('request/', make_request, name='sumbit-request')]
+urlpatterns += [path('load-data/', make_request, name='load-data')]
