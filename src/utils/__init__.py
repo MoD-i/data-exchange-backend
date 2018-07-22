@@ -16,6 +16,10 @@ from django.db import connection
 from django.conf import settings
 
 
+def jsonify(data):
+    return json.dumps(data, indent=4)
+
+
 def file_to_hex(filename):
     with open(filename, 'rb') as f:
         content = f.read()
