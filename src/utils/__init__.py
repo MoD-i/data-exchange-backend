@@ -32,3 +32,14 @@ def hex_to_char(hexa):
     ascii_pair = list(map(lambda x: int(x, 16), hex_pair))
     return ''.join(list(map(chr,ascii_pair)))
 
+def char_to_hex(char):
+    # TODO
+    pass
+
+def json_to_hex(char):
+    # TODO
+    pass
+
+def hex_to_json(char):
+    # TODO
+    pass
