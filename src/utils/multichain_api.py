@@ -18,14 +18,13 @@ myPath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, myPath + '/../')
 
 try:
-    from utils import hex_to_file, file_to_hex
+    from utils import hex_to_file, file_to_hex, char_to_hex, hex_to_char
 except:
-    from src.utils import hex_to_file, file_to_hex
+    from src.utils import hex_to_file, file_to_hex, char_to_hex, hex_to_char
 
 __version__ = '1.0.0'
 __author__ = 'Toran Sahu  <toran.sahu@yahoo.com>'
 __copyright__ = 'Copyright (C) 2018 Clarion IT Pvt. Ltd. All rights reserved'
-
 
 
 rpcuser = 'multichainrpc'
@@ -34,16 +33,27 @@ rpchost = 'localhost'
 rpcport = '6820'
 chainname = 'mychain'
 
+
 def jsonify(data):
     return json.dumps(data, indent=4)
 
+
 api = Savoir(rpcuser, rpcpasswd, rpchost, rpcport, chainname)
 
-def publish_stream(stream, key, data):
-    txid = api.publish(stream, key, data)
+def publish_stream(stream, key, data, isfile=False):
+    if isfile:
+        hex_data = file_to_hex(data) 
+        txid = api.publish(stream, key, hex_data)
+    else:
+        hex_data = char_to_hex(data)
+        txid = api.publish(stream, key, data)
     return txid
 
+
 def get_tx_data(txid):
-    data = api.gettxoutdata(txid, 0)
+    hex_data = api.gettxoutdata(txid, 0)
+    # TODO: write logic, whether data was file or string, as of now \
+    #        considering it as string
+    data = hex_to_char(hex_data)
     return data
 
