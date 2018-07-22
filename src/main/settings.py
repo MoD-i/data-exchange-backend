@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'dep1',
     'dep2',
+    'common',
 ]
 
 MIDDLEWARE = [
