@@ -58,7 +58,11 @@ def make_request(request):
     to = 'dep2'  # request.data['department']
     key = f'{frm}-{to}-{ticket_no}'
     data_to_publish = request.data['aadhar']  #TODO: get it from request.data
-    txid = publish_stream(stream, key, data_to_publish, data_format='json')
+    try:
+        txid = publish_stream(stream, key, data_to_publish, data_format='json')
+    except:
+        return Response(status=status.HTTP_403_FORBIDDEN, data={'status': 'failure',
+            'message': 'Request Unsuccessful. Error while connecting with blockchain node'})
     try: 
         if txid:
             # record notification in Nootification table
