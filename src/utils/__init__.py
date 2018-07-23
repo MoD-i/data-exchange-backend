@@ -61,7 +61,7 @@ def json_to_hex(data):
 
 def hex_to_json(hexa):
     """
-    This returns LIST
+    This returns LIST or DICT
     """
     # TODO
     # return hex_to_char(hexa)

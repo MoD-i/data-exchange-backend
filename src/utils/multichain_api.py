@@ -68,8 +68,6 @@ def publish_stream(stream, key, data, data_format='char'):
 
 
 def get_tx_data(txid):
-    print("get_tx_data")
     hex_data = api.gettxoutdata(txid, 0)
-    print(hex_data)
     return hex_data
 

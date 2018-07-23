@@ -37,16 +37,17 @@ def make_response(request):
         return Response(status=status.HTTP_403_FORBIDDEN, data={'status': 'failure',
             'message': 'Request Unsuccessful. Error while connecting with blockchain node'})
     req_json_data = hex_to_json(req_hex_data)
-    datum = json.loads(str(req_json_data))
+    #datum = json.loads(str(req_json_data))
+    datum = req_json_data
     try:
 
         if isinstance(datum, list):
             obj_list = []
             for d in datum:
-                aadhar = d["aadhar_number"]
+                aadhar = d["aadhar"]
                 count = Scheme.objects.filter(aadhar_number=aadhar).count()
                 if count > 0:
-                    obj = Scheme.objects.get(aadhar)
+                    obj = Scheme.objects.get(aadhar_number=aadhar)
                     d["aadhar_number"] = aadhar
                     d["beneficiary_name"] =  obj.beneficiary_name
                     d["address"] = obj.address 
@@ -57,9 +58,10 @@ def make_response(request):
                     obj_list.append(d)
                     res_json_data = jsonify(obj_list)
         else:
-            aadhar = datum["aadhar_number"]
+            aadhar = datum["aadhar"]
             count = Scheme.objects.filter(aadhar_number=aadhar).count()
             if count > 0:
+                obj = Scheme.objects.get(aadhar_number=aadhar)
                 d["aadhar_number"] = aadhar
                 d["beneficiary_name"] =  obj.beneficiary_name
                 d["address"] = obj.address 
