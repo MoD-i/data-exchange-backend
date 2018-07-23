@@ -7,6 +7,7 @@ from utils.multichain_api import api, publish_stream, get_tx_data
 from utils import hex_to_json, fetch_next_id, notify, jsonify
 from uuid import uuid4
 from common.models import Notification
+import json
 
 # Create your views here.
 
