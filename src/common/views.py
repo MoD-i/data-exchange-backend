@@ -14,7 +14,7 @@ class NotificationViewSet(viewsets.ModelViewSet):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
 
-    @action(methods=['GET'], detail=False, url_path='^dep/(?P<title>[a-zA-Z0-9]+)', url_name='get-by-dep')
+    @action(methods=['GET'], detail=False)
     def get_by_dep(self, request, dep):
         """
         Returns all notification for particular dep.
@@ -28,6 +28,21 @@ class NotificationViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(noti, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+# @action(methods=['GET'], detail=False, url_path='^dep/(?P<dep>[a-zA-Z0-9]+)', url_name='get-by-dep')
+# def get_by_dep(self, request, dep):
+#     """
+#     Returns all notification for particular dep.
+#     """
+# 
+#     noti = Notification.objects.filter(to__iexact=dep)
+#     page = self.paginate_queryset(noti)
+#     if page is not None:
+#         serializer = self.get_serializer(page, many=True)
+#         return self.get_paginated_response(serializer.data)
+# 
+#     serializer = self.get_serializer(noti, many=True)
+#     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
