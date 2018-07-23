@@ -40,8 +40,12 @@ def get_tx_data(request):
     """
     txid = request.data['txid']
     try:
-        # get requested data from txid
         req_hex_data = get_tx_data(req_txid)
+    except:
+        return Response(status=status.HTTP_403_FORBIDDEN, data={'status': 'failure',
+            'message': 'Request Unsuccessful. Error while connecting with blockchain node'})
+    try:
+        # get requested data from txid
         req_json_data = hex_to_json(req_hex_data)
         datum = json.loads(str(req_json_data))
         return Response(data=datum, status=status.HTTP_202_ACCEPTED)
