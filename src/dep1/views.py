@@ -7,6 +7,7 @@ from utils.multichain_api import api, publish_stream, get_tx_data
 from utils import hex_to_json, fetch_next_id, notify
 from uuid import uuid4
 from common.models import Notification
+import json
 # Create your views here.
 
 class SchemeViewSet(viewsets.ModelViewSet):
@@ -44,6 +45,11 @@ def make_request(request):
     JSON needed with:
         1. department
         2. aadhar(list of JSON objects)
+    E.g.:
+        {
+            "department": "dep2",
+            "aadhar": [{"aadhar": "12345677"}, {"aadhar":"52345234"}]
+        }
     """
     data = request.data
     stream = 'scheme'
@@ -61,7 +67,7 @@ def make_request(request):
             # record ticket number in dep. ticket table
             ticket  = Ticket(txid=txid, status='O', frm=frm, to=to) 
             ticket.save()
-            return Response(status=status.HTTP_201_CREATED, datat={'status': 'success',
+            return Response(status=status.HTTP_201_CREATED, data={'status': 'success',
                 'message': 'Request Sent Successfully.'})
 
         else:
@@ -71,6 +77,7 @@ def make_request(request):
     except:
         return Response(status=status.HTTP_400_BAD_REQUEST, data={'status': 'failure',
             'message': 'Request Unsuccessful. Something unusual occurred.'})
+
 
 @api_view(['POST'])
 def load_data(request):

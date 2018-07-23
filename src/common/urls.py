@@ -10,7 +10,7 @@
 
 """
 
-from .views import NotificationViewSet
+from .views import NotificationViewSet, get_tx_data
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 
@@ -22,3 +22,4 @@ router.register('notifications', NotificationViewSet, base_name='notifications')
 
 urlpatterns = router.urls
 
+urlpatterns += [path('tx-data/', get_tx_data, name='tx-data'),]
