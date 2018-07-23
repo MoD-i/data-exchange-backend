@@ -28,12 +28,25 @@ __version__ = '1.0.0'
 __author__ = 'Toran Sahu  <toran.sahu@yahoo.com>'
 __copyright__ = 'Copyright (C) 2018 Clarion IT Pvt. Ltd. All rights reserved'
 
+##
+# local node
+##
+
+# rpcuser = 'multichainrpc'
+# rpcpasswd = '8DtJkTWgJnHDbKNZdFuVyWo1LHFkwoKSZ3S45UyQV3AM'
+# rpchost = 'localhost'
+# rpcport = '6820'
+# chainname = 'mychain'
+
+##
+# toran's aws node
+##
 
 rpcuser = 'multichainrpc'
-rpcpasswd = '8DtJkTWgJnHDbKNZdFuVyWo1LHFkwoKSZ3S45UyQV3AM'
-rpchost = 'localhost'
-rpcport = '6820'
-chainname = 'mychain'
+rpcpasswd = 'GDMZZeqDn64ZmYxNqemwNdELp6xYfvf8rfQ1j6ELKUNL'
+rpchost = '13.232.100.99'
+rpcport = '9580'
+chainname = 'cg-chain'
 
 
 api = Savoir(rpcuser, rpcpasswd, rpchost, rpcport, chainname)
