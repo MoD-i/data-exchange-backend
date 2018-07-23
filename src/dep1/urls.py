@@ -24,4 +24,4 @@ router.register('tickets', TicketViewSet, 'tickets')
 urlpatterns = router.urls
 
 urlpatterns += [path('request/', make_request, name='sumbit-request')]
-urlpatterns += [path('load-data/', make_request, name='load-data')]
+urlpatterns += [path('load-data/', load_data, name='load-data')]

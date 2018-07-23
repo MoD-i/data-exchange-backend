@@ -62,6 +62,7 @@ def make_response(request):
             count = Scheme.objects.filter(aadhar_number=aadhar).count()
             if count > 0:
                 obj = Scheme.objects.get(aadhar_number=aadhar)
+                d = dict()
                 d["aadhar_number"] = aadhar
                 d["beneficiary_name"] =  obj.beneficiary_name
                 d["address"] = obj.address 
@@ -73,7 +74,7 @@ def make_response(request):
 
         res_data = res_json_data
         res_txid = publish_stream(stream,key, res_data, data_format='json')
-        notify(Notification, 'dep2', 'dep1', ticket_no, req_txid, stream, key)
+        notify(Notification, 'dep2', 'dep1', ticket_no, res_txid, stream, key)
         return Response(status=status.HTTP_201_CREATED, data={'status': 'success', 'message': 'Response Sent Successfully.'})
     except:
         return Response(status=status.HTTP_400_BAD_REQUEST, data={'status': 'failure',
