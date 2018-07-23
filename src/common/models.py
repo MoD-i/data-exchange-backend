@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Notification(models.Model):
+    nid = models.AutoField(primary_key=True)
     frm = models.CharField(max_length=50)
     to = models.CharField(max_length=50)
     ticket_no = models.IntegerField()
@@ -14,4 +15,4 @@ class Notification(models.Model):
         return f'Notification from {self.frm}. Ticket No. {ticket_no}. Trxn ID {txid}'
 
     class Meta:
-        ordering = ('-id', )
+        ordering = ('-nid', )

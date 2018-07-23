@@ -69,7 +69,7 @@ def make_request(request):
             notify(Notification, frm, to, ticket_no, txid, stream, key)
 
             # record ticket number in dep. ticket table
-            ticket  = Ticket(txid=txid, status='O', frm=frm, to=to) 
+            ticket  = Ticket.objects.create(txid=txid, status='O', frm=frm, to=to) 
             ticket.save()
             return Response(status=status.HTTP_201_CREATED, data={'status': 'success',
                 'message': 'Request Sent Successfully.'})
