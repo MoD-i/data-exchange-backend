@@ -55,12 +55,18 @@ def char_to_hex(s):
 
 
 def json_to_hex(data):
+    data = json.dumps(data)
     return char_to_hex(str(data))
 
 
 def hex_to_json(hexa):
-    dict_from_str = json.loads( hex_to_char(hexa))
-    return json.dumps(dict_from_str, indent=4)
+    """
+    This returns LIST
+    """
+    # TODO
+    # return hex_to_char(hexa)
+    l = eval(hex_to_char(hexa))
+    return l # json.dumps(l)
 
 
 def dict_to_hex(data):
