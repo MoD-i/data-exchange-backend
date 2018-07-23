@@ -69,8 +69,5 @@ def publish_stream(stream, key, data, data_format='char'):
 
 def get_tx_data(txid):
     hex_data = api.gettxoutdata(txid, 0)
-    # TODO: write logic, whether data was file or string, as of now \
-    #        considering it as string
-    data = hex_to_char(hex_data)
-    return data
+    return hex_data
 
