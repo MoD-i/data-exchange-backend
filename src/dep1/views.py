@@ -45,11 +45,6 @@ def make_request(request):
     JSON needed with:
         1. department
         2. aadhar(list of JSON objects)
-    E.g.:
-        {
-            "department": "dep2",
-            "aadhar": [{"aadhar": "12345677"}, {"aadhar":"52345234"}]
-        }
     """
     data = request.data
     stream = 'scheme'
@@ -92,22 +87,22 @@ def load_data(request):
     JSON needed with:
         1. txid
     """
-    txid = request.data[txid]
+    txid = request.data['txid']
     try:
         tx_data = get_tx_data(txid)
     except:
         return Response(status=status.HTTP_403_FORBIDDEN, data={'status': 'failure',
             'message': 'Request Unsuccessful. Error while connecting with blockchain node'})
     json_data = hex_to_json(tx_data)
-    datum = json.loads(str(json_data))
+    # datum = json.loads(str(json_data))
+    datum = eval(json_data)
     try:
-
         if isinstance(datum, list):
             for d in datum:
-                aadhar = d["aadhar_number"]
+                aadhar = d["aadhar"]
                 count = Scheme.objects.filter(aadhar_number=aadhar).count()
                 if count > 0:
-                    obj = Scheme.objects.get(aadhar)
+                    obj = Scheme.objects.get(aadhar_number=aadhar)
                     obj.beneficiary_name = d["beneficiary_name"]
                     obj.address = d["address"]
                     obj.gender = d["gender"]
@@ -118,8 +113,9 @@ def load_data(request):
         else:
             aadhar = datum["aadhar_number"]
             count = Scheme.objects.filter(aadhar_number=aadhar).count()
+            d = datum
             if count > 0:
-                obj = Scheme.objects.get(aadhar)
+                obj = Scheme.objects.get(aadhar_number=aadhar)
                 obj.beneficiary_name = d["beneficiary_name"]
                 obj.address = d["address"]
                 obj.gender = d["gender"]
@@ -129,7 +125,7 @@ def load_data(request):
                 obj.save()
         return Response(status=status.HTTP_201_CREATED, data={'status': 'success', 'message': 'Data Loaded Successfully.'})
     except:
-        return Response(status=status.HTTP_400_BAD_REQUEST, datat={'status': 'failure',
+        return Response(status=status.HTTP_400_BAD_REQUEST, data={'status': 'failure',
             'message': 'Data Loading Unsuccessful. Something unusual occurred.'})
 
 
