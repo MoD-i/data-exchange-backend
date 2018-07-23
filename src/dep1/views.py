@@ -43,7 +43,7 @@ def make_request(request):
     """
     JSON needed with:
         1. department
-        2. aadhar
+        2. aadhar(list of JSON objects)
     """
     data = request.data
     stream = 'scheme'
