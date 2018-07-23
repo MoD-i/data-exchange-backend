@@ -115,6 +115,7 @@ def fetch_next_id(table_name):
 
 
 def notify(model, frm, to, ticket_no, txid, stream, key):
-    model(frm, to, ticket_no, txid, stream, key)
+    obj = model(frm, to, ticket_no, txid, stream, key)
+    obj.save()
 
 
