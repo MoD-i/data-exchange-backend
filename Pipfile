@@ -8,6 +8,7 @@ django = "*"
 djangorestframework = "*"
 coreapi = "*"
 savoir = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
