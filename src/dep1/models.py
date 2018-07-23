@@ -20,4 +20,14 @@ class Scheme(models.Model):
 
 
 class Ticket(models.Model):
+
+    CLOSED = 'C'
+    OPEN = 'O'
+    TICKET_STATUS = ((CLOSED, 'Closed'), (OPEN, 'Open'))
+
     ticket_id = models.IntegerField(primary_key=True, unique=True)
+    txid = models.CharField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(choices=TICKET_STATUS, max_length=1)
+    frm = models.CharField(max_length=50)
+    to = models.CharField(max_length=50)

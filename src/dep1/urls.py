@@ -10,7 +10,7 @@
 
 """
 
-from .views import SchemeViewSet, make_request, load_data
+from .views import SchemeViewSet, make_request, load_data, TicketViewSet
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 
@@ -19,6 +19,7 @@ app_name = 'dep1'
 
 router = DefaultRouter()
 router.register('schemes', SchemeViewSet, base_name='schemes')
+router.register('tickets', TicketViewSet, 'tickets')
 
 urlpatterns = router.urls
 

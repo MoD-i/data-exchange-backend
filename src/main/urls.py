@@ -29,4 +29,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dep1/', include('dep1.urls', namespace='dep1')),
     path('dep2/', include('dep2.urls', namespace='dep2')),
+    path('common/', include('common.urls', namespace='common')),
 ]

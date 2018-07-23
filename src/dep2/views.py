@@ -1,4 +1,4 @@
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets, mixins, status
 from .models import Scheme
 from .serializers import SchemeSerializer
 from rest_framework.decorators import api_view
@@ -33,13 +33,28 @@ def make_response(request):
     req_hex_data = get_tx_data(req_txid)
     req_json_data = hex_to_json(req_hex_data)
     datum = json.loads(str(req_json_data))
-    if isinstance(datum, list):
-        obj_list = []
-        for d in datum:
-            aadhar = d["aadhar_number"]
+    try:
+
+        if isinstance(datum, list):
+            obj_list = []
+            for d in datum:
+                aadhar = d["aadhar_number"]
+                count = Scheme.objects.filter(aadhar_number=aadhar).count()
+                if count > 0:
+                    obj = Scheme.objects.get(aadhar)
+                    d["aadhar_number"] = aadhar
+                    d["beneficiary_name"] =  obj.beneficiary_name
+                    d["address"] = obj.address 
+                    d["gender"] =  obj.gender 
+                    d["member_age"] =  obj.member_age 
+                    d["dist_name"] = obj.dist_name  
+                    d["scheme_name"] = obj.scheme_name  
+                    obj_list.append(d)
+                    res_json_data = jsonify(obj_list)
+        else:
+            aadhar = datum["aadhar_number"]
             count = Scheme.objects.filter(aadhar_number=aadhar).count()
             if count > 0:
-                obj = Scheme.objects.get(aadhar)
                 d["aadhar_number"] = aadhar
                 d["beneficiary_name"] =  obj.beneficiary_name
                 d["address"] = obj.address 
@@ -47,21 +62,13 @@ def make_response(request):
                 d["member_age"] =  obj.member_age 
                 d["dist_name"] = obj.dist_name  
                 d["scheme_name"] = obj.scheme_name  
-                obj_list.append(d)
-                res_json_data = jsonify(obj_list)
-    else:
-        aadhar = datum["aadhar_number"]
-        count = Scheme.objects.filter(aadhar_number=aadhar).count()
-        if count > 0:
-            d["aadhar_number"] = aadhar
-            d["beneficiary_name"] =  obj.beneficiary_name
-            d["address"] = obj.address 
-            d["gender"] =  obj.gender 
-            d["member_age"] =  obj.member_age 
-            d["dist_name"] = obj.dist_name  
-            d["scheme_name"] = obj.scheme_name  
-            res_json_data = jsonify(d)
+                res_json_data = jsonify(d)
 
-    res_data = res_json_data
-    res_txid = publish_stream(stream,key, res_data, data_format='json')
-    notify(Notification, 'dep2', 'dep1', ticket_no, req_txid, stream, key)
+        res_data = res_json_data
+        res_txid = publish_stream(stream,key, res_data, data_format='json')
+        notify(Notification, 'dep2', 'dep1', ticket_no, req_txid, stream, key)
+        return Response(status=status.HTTP_201_CREATED, data={'status': 'success', 'message': 'Response Sent Successfully.'})
+    except:
+        return Response(status=status.HTTP_400_BAD_REQUEST, data={'status': 'failure',
+            'message': 'Response Unsuccessful. Something unusual occurred.'})
+

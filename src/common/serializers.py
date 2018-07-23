@@ -11,18 +11,11 @@
 """
 
 from rest_framework import serializers
-from .models import Scheme, Ticket
+from .models import Notification
 
 
-class SchemeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Scheme
-        fields = '__all__'
-
-
-class TicketSerializer(serializers.ModelSerializer):
+class NotificationSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Ticket
+        model = Notification
         fields = '__all__'
