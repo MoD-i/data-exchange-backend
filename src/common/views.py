@@ -3,7 +3,8 @@ from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from .models import Notification
 from .serializers import NotificationSerializer
-from utils.multichain_api import get_tx_data, hex_to_json
+from utils.multichain_api import api, get_tx_data
+from utils import hex_to_json, hex_to_char
 import json
 
 
@@ -40,14 +41,18 @@ def get_tx_data(request):
     """
     txid = request.data['txid']
     try:
-        req_hex_data = get_tx_data(req_txid)
+
+        # req_hex_data = get_tx_data(txid)
+        req_hex_data = api.gettxoutdata(txid,0) # TODO
     except:
         return Response(status=status.HTTP_403_FORBIDDEN, data={'status': 'failure',
             'message': 'Request Unsuccessful. Error while connecting with blockchain node'})
     try:
         # get requested data from txid
-        req_json_data = hex_to_json(req_hex_data)
-        datum = json.loads(str(req_json_data))
-        return Response(data=datum, status=status.HTTP_202_ACCEPTED)
-    except:
-        return Response(data={"status":"failure", "message": "Something Wrong Occurred."}, status=status.HTTP_403_FORBIDDEN)
+        req_json_data = hex_to_json(req_hex_data) # TODO: this is LIST
+        return Response(data=req_json_data, status=status.HTTP_202_ACCEPTED)
+    except Exception as  e:
+        return Response(data={"status":"failure", "message": "Something Wrong Occurred."
+            # ,"exception":e
+            }, 
+            status=status.HTTP_403_FORBIDDEN)

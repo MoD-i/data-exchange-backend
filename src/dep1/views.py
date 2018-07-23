@@ -4,7 +4,7 @@ from .serializers import SchemeSerializer, TicketSerializer
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from utils.multichain_api import api, publish_stream, get_tx_data
-from utils import hex_to_json, fetch_next_id, notify
+from utils import hex_to_json,  notify
 from uuid import uuid4
 from common.models import Notification
 import json
@@ -53,10 +53,10 @@ def make_request(request):
     """
     data = request.data
     stream = 'scheme'
-    ticket_no = fetch_next_id('dep1_ticket')
+    # ticket_no =  fetch_next_id('dep1_ticket')
     frm = 'dep1'
     to = 'dep2'  # request.data['department']
-    key = f'{frm}-{to}-{ticket_no}'
+    # key = f'{frm}-{to}-{ticket_no}'
     data_to_publish = request.data['aadhar']  #TODO: get it from request.data
     try:
         txid = publish_stream(stream, key, data_to_publish, data_format='json')
@@ -65,12 +65,15 @@ def make_request(request):
             'message': 'Request Unsuccessful. Error while connecting with blockchain node'})
     try: 
         if txid:
-            # record notification in Nootification table
-            notify(Notification, frm, to, ticket_no, txid, stream, key)
-
             # record ticket number in dep. ticket table
             ticket  = Ticket.objects.create(txid=txid, status='O', frm=frm, to=to) 
             ticket.save()
+            key = f'{frm}-{to}-{ticket.id}'
+
+            
+            # record notification in Nootification table
+            notify(Notification, frm, to, ticket.id, txid, stream, key)
+
             return Response(status=status.HTTP_201_CREATED, data={'status': 'success',
                 'message': 'Request Sent Successfully.'})
 
