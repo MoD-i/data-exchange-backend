@@ -1071,132 +1071,132 @@
         "pk": "123456789200",
         "model": "dep1.scheme",
         "fields": {
-            "beneficiary_name": 0,
-            "gender": 0,
-            "member_age": 0,
-            "address": 0,
-            "dist_name": 0,
-            "scheme_name": 0
+            "beneficiary_name": null,
+            "gender": null,
+            "member_age": null,
+            "address": null,
+            "dist_name": null,
+            "scheme_name": null
         }
     },
     {
         "pk": "123456789201",
         "model": "dep1.scheme",
         "fields": {
-            "beneficiary_name": 0,
-            "gender": 0,
-            "member_age": 0,
-            "address": 0,
-            "dist_name": 0,
-            "scheme_name": 0
+            "beneficiary_name": null,
+            "gender": null,
+            "member_age": null,
+            "address": null,
+            "dist_name": null,
+            "scheme_name": null
         }
     },
     {
         "pk": "123456789202",
         "model": "dep1.scheme",
         "fields": {
-            "beneficiary_name": 0,
-            "gender": 0,
-            "member_age": 0,
-            "address": 0,
-            "dist_name": 0,
-            "scheme_name": 0
+            "beneficiary_name": null,
+            "gender": null,
+            "member_age": null,
+            "address": null,
+            "dist_name": null,
+            "scheme_name": null
         }
     },
     {
         "pk": "123456789203",
         "model": "dep1.scheme",
         "fields": {
-            "beneficiary_name": 0,
-            "gender": 0,
-            "member_age": 0,
-            "address": 0,
-            "dist_name": 0,
-            "scheme_name": 0
+            "beneficiary_name": null,
+            "gender": null,
+            "member_age": null,
+            "address": null,
+            "dist_name": null,
+            "scheme_name": null
         }
     },
     {
         "pk": "123456789204",
         "model": "dep1.scheme",
         "fields": {
-            "beneficiary_name": 0,
-            "gender": 0,
-            "member_age": 0,
-            "address": 0,
-            "dist_name": 0,
-            "scheme_name": 0
+            "beneficiary_name": null,
+            "gender": null,
+            "member_age": null,
+            "address": null,
+            "dist_name": null,
+            "scheme_name": null
         }
     },
     {
         "pk": "123456789205",
         "model": "dep1.scheme",
         "fields": {
-            "beneficiary_name": 0,
-            "gender": 0,
-            "member_age": 0,
-            "address": 0,
-            "dist_name": 0,
-            "scheme_name": 0
+            "beneficiary_name": null,
+            "gender": null,
+            "member_age": null,
+            "address": null,
+            "dist_name": null,
+            "scheme_name": null
         }
     },
     {
         "pk": "123456789206",
         "model": "dep1.scheme",
         "fields": {
-            "beneficiary_name": 0,
-            "gender": 0,
-            "member_age": 0,
-            "address": 0,
-            "dist_name": 0,
-            "scheme_name": 0
+            "beneficiary_name": null,
+            "gender": null,
+            "member_age": null,
+            "address": null,
+            "dist_name": null,
+            "scheme_name": null
         }
     },
     {
         "pk": "123456789207",
         "model": "dep1.scheme",
         "fields": {
-            "beneficiary_name": 0,
-            "gender": 0,
-            "member_age": 0,
-            "address": 0,
-            "dist_name": 0,
-            "scheme_name": 0
+            "beneficiary_name": null,
+            "gender": null,
+            "member_age": null,
+            "address": null,
+            "dist_name": null,
+            "scheme_name": null
         }
     },
     {
         "pk": "123456789208",
         "model": "dep1.scheme",
         "fields": {
-            "beneficiary_name": 0,
-            "gender": 0,
-            "member_age": 0,
-            "address": 0,
-            "dist_name": 0,
-            "scheme_name": 0
+            "beneficiary_name": null,
+            "gender": null,
+            "member_age": null,
+            "address": null,
+            "dist_name": null,
+            "scheme_name": null
         }
     },
     {
         "pk": "123456789209",
         "model": "dep1.scheme",
         "fields": {
-            "beneficiary_name": 0,
-            "gender": 0,
-            "member_age": 0,
-            "address": 0,
-            "dist_name": 0,
-            "scheme_name": 0
+            "beneficiary_name": null,
+            "gender": null,
+            "member_age": null,
+            "address": null,
+            "dist_name": null,
+            "scheme_name": null
         }
     },
     {
         "pk": "123456789210",
         "model": "dep1.scheme",
         "fields": {
-            "beneficiary_name": 0,
-            "gender": 0,
-            "member_age": 0,
-            "address": 0,
-            "dist_name": 0,
-            "scheme_name": 0
+            "beneficiary_name": null,
+            "gender": null,
+            "member_age": null,
+            "address": null,
+            "dist_name": null,
+            "scheme_name": null
         }
     }
 ]
