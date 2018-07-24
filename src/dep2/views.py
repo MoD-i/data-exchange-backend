@@ -56,7 +56,7 @@ def make_response(request):
                     d["dist_name"] = obj.dist_name  
                     d["scheme_name"] = obj.scheme_name  
                     obj_list.append(d)
-                    res_json_data = jsonify(obj_list)
+                    res_json_data = obj_list # jsonify(obj_list)
         else:
             aadhar = datum["aadhar"]
             count = Scheme.objects.filter(aadhar_number=aadhar).count()
@@ -70,7 +70,7 @@ def make_response(request):
                 d["member_age"] =  obj.member_age 
                 d["dist_name"] = obj.dist_name  
                 d["scheme_name"] = obj.scheme_name  
-                res_json_data = jsonify(d)
+                res_json_data = d #jsonify(d)
 
         res_data = res_json_data
         res_txid = publish_stream(stream,key, res_data, data_format='json')
