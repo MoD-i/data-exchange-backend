@@ -95,7 +95,7 @@ def load_data(request):
             'message': 'Request Unsuccessful. Error while connecting with blockchain node'})
     json_data = hex_to_json(tx_data)
     # datum = json.loads(str(json_data))
-    datum = eval(json_data)
+    datum = json_data
     try:
         if isinstance(datum, list):
             for d in datum:
