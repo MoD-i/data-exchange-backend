@@ -20,7 +20,8 @@ server {
 
 
    location / {
-        proxy_set_header Host "api.etherealmachines.com";
+        # proxy_set_header Host "api.etherealmachines.com";
+        proxy_set_header Host "ec2-13-232-100-99.ap-south-1.compute.amazonaws.com";
         # proxy_set_header Host $host;
 
         proxy_set_header        X-Real-IP $remote_addr;
@@ -29,8 +30,8 @@ server {
         proxy_set_header        X-Forwarded-Proto "https";
         proxy_set_header X-Forwarded-Host $server_name;
 
-        proxy_pass http://ec2-13-232-100-99.ap-south-1.compute.amazonaws.com:8000;
-        # proxy_pass http://0.0.0.0:8000;
+        # proxy_pass http://ec2-13-232-100-99.ap-south-1.compute.amazonaws.com:8000;
+        proxy_pass http://0.0.0.0:8000;
 
         add_header P3P 'CP="ALL DSP COR PSAa PSDa OUR NOR ONL UNI COM NAV"';
    }
