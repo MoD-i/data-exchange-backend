@@ -38,26 +38,11 @@ __copyright__ = 'Copyright (C) 2018 Clarion IT Pvt. Ltd. All rights reserved'
 # rpcport = '6820'
 # chainname = 'mychain'
 
-##
-# toran's aws node 2 (mychain)
-##
-
-# rpcuser = 'multichainrpc'
-# rpcpasswd = '2fQ8J2TXSePCBYPAWAPr7wGJ66XaYbuxoVU9Hut2rj3W'
-# rpchost = '13.232.100.99'
-# rpcport = '9580'
-# chainname = 'cg-chain'
-
-
-##
-# vin's aws node
-##
-
 rpcuser = 'multichainrpc'
-rpcpasswd = '4T6TggqGsoGcEiruJZiYChuD8MG3kZKNEMEYJ11D3xgs'
-rpchost = '54.72.42.143'
-rpcport = '9580'
-chainname = 'cg-chain'
+rpcpasswd = '4TeuoPr4wDkGNr7zpDBFMFMewcUzVwXaCvc4prHBjDED'
+rpchost = '13.232.100.99'
+rpcport = '2656'
+chainname = 'block-chain'
 
 api = Savoir(rpcuser, rpcpasswd, rpchost, rpcport, chainname)
 

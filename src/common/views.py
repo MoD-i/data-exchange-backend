@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from .models import Notification
 from .serializers import NotificationSerializer
-from utils.multichain_api import api, get_tx_data
+from utils.multichain_api_toran import api, get_tx_data
 from utils import hex_to_json, hex_to_char
 import json
 
