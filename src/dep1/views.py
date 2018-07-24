@@ -3,7 +3,7 @@ from .models import Scheme, Ticket
 from .serializers import SchemeSerializer, TicketSerializer
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
-from utils.multichain_api import api, publish_stream, get_tx_data
+from utils.multichain_api_toran import api, publish_stream, get_tx_data
 from utils import hex_to_json,  notify, fetch_next_id
 from uuid import uuid4
 from common.models import Notification
