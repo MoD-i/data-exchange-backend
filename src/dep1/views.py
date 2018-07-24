@@ -52,7 +52,13 @@ def make_request(request):
     frm = 'dep1'
     to = 'dep2'  # request.data['department']
     key = f'{frm}-{to}-{ticket_no}'
-    data_to_publish = request.data['aadhar']  #TODO: get it from request.data
+    data_to_publish = request.data['aadhar']
+
+    ##
+    # to solve JSON string issue - Prakhar's
+    ##
+    if isinstance(data_to_publish, str):
+        data_to_publish = eval(data_to_publish)
     try:
         txid = publish_stream(stream, key, data_to_publish, data_format='json')
     except:
