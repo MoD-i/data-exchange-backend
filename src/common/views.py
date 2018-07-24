@@ -64,7 +64,7 @@ def get_tx_data(request):
             'message': 'Request Unsuccessful. Error while connecting with blockchain node'})
     try:
         # get requested data from txid
-        req_json_data = hex_to_json(req_hex_data) # TODO: this is LIST
+        req_json_data = eval(hex_to_json(req_hex_data)) # TODO: this is LIST
         return Response(data=req_json_data, status=status.HTTP_202_ACCEPTED)
     except Exception as  e:
         return Response(data={"status":"failure", "message": "Something Wrong Occurred."
