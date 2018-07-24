@@ -10,6 +10,7 @@ class Notification(models.Model):
     txid = models.CharField(max_length=500)
     stream = models.CharField(max_length=50)
     key = models.CharField(max_length=100)
+    read = models.BooleanField(default=False)
 
     def _str_(self):
         return f'Notification from {self.frm}. Ticket No. {ticket_no}. Trxn ID {txid}'
