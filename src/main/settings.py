@@ -25,7 +25,7 @@ SECRET_KEY = '^+^&%lq7@@&e^+a%c)29$4sjuwy052i&n5c1^(xte5co=$-qo='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'ec2-13-232-100-99.ap-south-1.compute.amazonaws.com', 'api.toransahu.ml']
+ALLOWED_HOSTS = ['127.0.0.1','0.0.0.0', 'ec2-13-232-100-99.ap-south-1.compute.amazonaws.com', 'api.toransahu.ml']
 
 
 # Application definition
@@ -121,11 +121,31 @@ USE_L10N = True
 
 USE_TZ = True
 
+##
+# the absolute path to the folder that will hold our user uploads
+# to get absolute path without hardcoding
+##
+
+ENV_PATH = os.path.abspath(os.path.dirname(__file__)) + os.sep + os.pardir
+CONFIG_PATH = os.path.join(ENV_PATH, '../configs/') 
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(ENV_PATH, 'allstatic/')
+
+
+
+##
+# Media files  
+# https://timmyomahony.com/blog/static-vs-media-and-root-vs-path-in-django/  
+##
+MEDIA_URL = '/file/' 
+MEDIA_ROOT = os.path.join(ENV_PATH, 'FILE/') 
+
+
 
 ##
 #  Common Database Settings
