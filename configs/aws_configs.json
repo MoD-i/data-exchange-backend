@@ -1,0 +1,10 @@
+{
+	"AWS_ACCESS_KEY_ID": "AKIAIBBFQZVDCT7BR6QA",
+	"AWS_SECRET_ACCESS_KEY": "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",
+	"AWS_STORAGE_BUCKET_NAME": "ethereal-site",
+	"AWS_S3_OBJECT_PARAMETERS": {
+		    "CacheControl": "max-age=86400"
+	},
+	"AWS_LOCATION": "static"
+}
+
