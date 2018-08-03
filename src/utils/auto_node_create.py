@@ -5,6 +5,15 @@
 
 """
 auto_node_create.py
+
+AIM: Automatically:
+        1. Install Multichain
+        2. Check/Use or Create new Node
+        3. Connect Node with MoD-i Blockchain
+Pre-requisites:
+    1. OS: Linux(Debian) or Windows
+    2. `sudo` password in Linux
+    3. Python >= 3.6
 """
 
 import os
@@ -55,6 +64,7 @@ def check_node():
 
 
 def create_node():
+    global NODE_DIR
     if len(EXISTING_NODES) > 0:
         logger.warning('Creating another node.')
         last_node_no = max(map(lambda node: int(node[-1]), EXISTING_NODES))
@@ -67,20 +77,23 @@ def create_node():
 
     
 def connect_node():
+    global NODE_DIR
     print('command\n:', NODE_DIR)
     # p = subprocess.run(['multichaind', f'-datadir={NODE_DIR}', 'block-chain@13.232.100.99:2657'], shell=True, 
-    p = subprocess.run(['multichaind -datadir=/home/toran/mint-ThinkPad-L440-root-node0 block-chain@13.232.100.99:2657'], shell=True, 
+    # p = subprocess.run(['multichaind -datadir=/home/toran/mint-ThinkPad-L440-root-node0 block-chain@13.232.100.99:2657'], shell=True, 
+    p = subprocess.run([f'multichaind -datadir={NODE_DIR} block-chain@13.232.100.99:2657'], shell=True, 
         stdout=subprocess.PIPE)
     res = p.stdout.decode()
     print(res)
 
 
 def install_multichain():
+    # TODO: check if already installed and skip
     os.chdir('/tmp/')
     subprocess.run(['wget', 'https://www.multichain.com/download/multichain-1.0.5.tar.gz'])
     subprocess.run(['tar', '-xvzf', 'multichain-1.0.5.tar.gz'])
     os.chdir('multichain-1.0.5')
-    subprocess.run(['mv', 'multichaind', 'multichain-cli', 'multichain-util', '/usr/local/bin'])
+    subprocess.run(['sudo', 'mv', 'multichaind', 'multichain-cli', 'multichain-util', '/usr/local/bin'])
 
 
 
@@ -92,17 +105,21 @@ if __name__ == '__main__':
         print(f'There are already {found} nodes linked to the MoD-i blockchain')
 
     while True:
-        user_inp = input("Do you still want to create a new node [y/n] : ")
+        if found == 0:
+            user_inp = input("Do you want to create a node [y/n] : ")
+        else:            
+            user_inp = input("Do you still want to create a new node [y/n] : ")
         if user_inp.lower() in ('n', 'no'):
             logger.info('Aborted. Exiting.')
             sys.exit()
         elif user_inp.lower() in ('y', 'yes'):
-            # install_multichain()
+            install_multichain()
             logger.info('multichain installed')
-            # create_node()
+            create_node()
             logger.info('One node created.')
             connect_node()
             logger.info('Node connected.')
+            # TODO: Tell datadir, chain name etc
             sys.exit()
         else:
             print('Please enter a valid option')
